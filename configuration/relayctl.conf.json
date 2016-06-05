@@ -1,0 +1,12 @@
+{
+	"relay_gpio_bcm":17,
+	"consecutive_miss_threshold":6,
+	"check_interval_sec":30,
+	"power_off_toggle_period_sec":10,
+	"post_toggle_quiescence_period_sec":300,
+	"check_addresses":[
+		"8.8.8.8",
+		"8.8.4.4"
+	],
+	"verbose_logging":true
+}
