@@ -1,4 +1,4 @@
-.PHONEY:install
+.PHONY:install
 
 install:
 	cp relayctl.py /usr/local/sbin/
