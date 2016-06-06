@@ -1,5 +1,5 @@
 #README
-relayctl allows a network connected [Raspberry Pi](https://www.raspberrypi.org/help/what-is-a-raspberry-pi/), a.k.a RPi, to toggle a relay controlled power strip, like the [IoT relay](http://www.digital-loggers.com/iotfaqs.html), whenever you lose internet connectivity. To determine if the RPi has internet connectivity, it pings a list of hosts provided in the configuration.
+relayctl allows a network connected [Raspberry Pi](https://www.raspberrypi.org/help/what-is-a-raspberry-pi/), a.k.a RPi, to toggle a relay controlled power strip, like the [IoT relay](http://www.digital-loggers.com/iotfaqs.html), whenever you lose internet connectivity. To determine if the RPi has internet connectivity, it pings a list of hosts provided in the configuration. It **assumes** that the relay is **normally closed** (mains power flows when the relay is unenergized).
 ##Installation Prerequisites
 This document assumes that you are running [Raspbian](https://www.raspberrypi.org/downloads/raspbian/) Jessie or Jessie Lite. All command line instructions assume that you are running them on the RPi command line.
 
@@ -21,7 +21,7 @@ Then, if it looked agreeable to you, you can run it with:
 
 ### Running it without installing it
 
-If you want to just run the script you can do that too: run `sudo pigpiod` to start pigpio, then just run relayctl via `python3 relayctl.py [your_config_file]`.  This is great for testing, but you probably want to run it as a service.
+If you want to just run the script you can do that too: run `sudo pigpiod` to start [pigpiod](https://github.com/joan2937/pigpio), then just run relayctl via `python3 relayctl.py [your_config_file]`.  This is great for testing, but you probably want to run it as a service like the `Makefile` creates for you.
 
 ###The relayctl user
 The relayctl service is configured to use its own unprivileged account.
@@ -52,6 +52,10 @@ One can follow them easily with:
     sudo tail -f /var/log/supervisor relayctl*.log
 
 ###Limitations
-* some modems and routers hijack DNS to redirect browsers to a status page when connectivity is lost. relayctl does not check the address that the ping was returned from so it is prone to false positives. For now I recommend only using raw IP addresses and not domain names in `check_addresses`.
+* Some modems and routers hijack DNS to redirect browsers to a status page when connectivity is lost. relayctl does not check the address that the ping was returned from so it is prone to false positives. For now I recommend only using raw IP addresses and not domain names in `check_addresses`.
 
 * relayctl does not provide for any back off of router restarts
+
+* I don't know if it works with the [PowerTail](http://www.powerswitchtail.com/Pages/default.aspx), I don't see why it wouldn't ... 
+
+* I am not providing physical setup assistance or instructions, play with mains power at your own risk.
